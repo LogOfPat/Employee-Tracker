@@ -8,7 +8,7 @@ async function doThings() {
         password: 'hamster',
         database: 'employees_db',
     });
-    console.log('Woo! Connected!');
+    console.log('Database connected');
     prompts.chooseTask(db);
     return db;
 }
