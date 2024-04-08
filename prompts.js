@@ -19,7 +19,7 @@ chooseTask = async function(db) {
         }
     ])
     .then((answers) => {
-        console.log(answers);
+        // console.log(answers);
         if(answers.task === 'view'){
             whichView(db); 
         }
@@ -39,7 +39,7 @@ pickAddCategory = function(db) {
         }
     ])
     .then(async (answers) => {
-        console.log(answers.add);
+        // console.log(answers.add);
         const choice = answers.add.toLowerCase();
         if(choice === 'employee'){
             await addEmployee(db);
@@ -77,11 +77,11 @@ addToTable = async function(db, sql){
 addRole = async function(database){
     const departments = await getList(database, 'SELECT name,id FROM department');
     
-    console.log(departments);
+    // console.log(departments);
 
     const dList = objToArray(departments);
 
-    console.log(dList);
+    // console.log(dList);
 
     inquirer.prompt([
         {
@@ -109,7 +109,7 @@ addRole = async function(database){
         const sql = `INSERT INTO role (name, salary, department_id)
             VALUES (${answers.rName}, ${answers.rSalary}, ${id})`;
 
-        console.log(sql);
+        // console.log(sql);
         addToTable(database, sql)
     })
 };
@@ -133,12 +133,12 @@ addDepartment = function(database){
 addEmployee = async function(db){
     let roles = await getList(db, 'SELECT name, id FROM role')
     let rolesL = objToArray(roles);
-    console.log(rolesL);
+    // console.log(rolesL);
 
     let managers = await getList(db, 'SELECT first_name,id FROM employee WHERE role_id = 1');
     let managersL = objToArray(managers);
     managersL.push('None');
-    console.log(managersL);
+    // console.log(managersL);
 
     inquirer.prompt([
         {
@@ -175,7 +175,7 @@ addEmployee = async function(db){
         const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
             VALUES ('${answers.nameFirst}', '${answers.nameLast}', ${roleID}, ${managerID})`
         
-        console.log(sql);
+        // console.log(sql);
         addToTable(db, sql);
         chooseTask(db);
     })
@@ -183,7 +183,7 @@ addEmployee = async function(db){
 
 getList = async function(db, sql){
     const rows = await db.query(sql)
-    console.log(rows);
+    // console.log(rows);
     return rows[0];
 }
 
@@ -197,7 +197,7 @@ objToArray = function(obj){
 }
 
 matchID = function(item, array){
-    console.log(array);
+    // console.log(array);
     for(let i = 0; i < array.length; i++){
         if(item === array[i].name || array[i].first_name){
             return array[i].id;
